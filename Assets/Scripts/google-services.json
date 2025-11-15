@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "713129832960",
+    "project_id": "itdxdda-asg1-48367",
+    "storage_bucket": "itdxdda-asg1-48367.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:713129832960:android:4cb36b936dcfd9c0371ee5",
+        "android_client_info": {
+          "package_name": "com.ngeeannpoly.forked"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXC6KnDBonA3792dapaIf0MYcsGg1f-ik"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

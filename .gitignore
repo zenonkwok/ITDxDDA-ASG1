@@ -55,6 +55,22 @@ ExportedObj/
 *.opendb
 *.VC.db
 
+# ========== Firebase Specific ==========
+# Firebase local caches and config artifacts
+/firebase.json
+/.firebase/
+firebase-debug.log
+firebase-debug.*.log
+
+# Firebase Gradle/Android builds
+/*.gradle
+/*.gradle.kts
+.gradle/
+*.apk
+*.aab
+*.obb
+*.keystore
+
 # Unity3D generated meta files
 *.pidb.meta
 *.pdb.meta

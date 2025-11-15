@@ -2805,6 +2805,7 @@ GameObject:
   - component: {fileID: 7026799857743934795}
   - component: {fileID: 3764931330024005843}
   - component: {fileID: 2394802335320168584}
+  - component: {fileID: 7561346439667899166}
   m_Layer: 0
   m_Name: FOODCLUB
   m_TagString: Untagged
@@ -2890,6 +2891,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7561346439667899166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6483822764693009592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20f02308e2b0eeb49a38780f766cf942, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ReadReviewScript
+  reviewHeader: {fileID: 138906665910127978}
+  reviewName: {fileID: 961862454178571931}
+  reviewText: {fileID: 4848660241700503297}
+  placeholderHeader: Review #1
+  placeholderName: John
+  placeholderContent: I love this chicken rice man it's so good
 --- !u!1 &7040907323590570101
 GameObject:
   m_ObjectHideFlags: 0
@@ -3182,7 +3201,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7076359891594912550
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3221,7 +3240,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7492171847070039886
 RectTransform:
   m_ObjectHideFlags: 0
