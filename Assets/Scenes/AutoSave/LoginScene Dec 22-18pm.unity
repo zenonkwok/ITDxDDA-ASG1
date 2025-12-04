@@ -2863,6 +2863,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LoginSceneScript
   tmpEmailField: {fileID: 1408668399}
   tmpPasswordField: {fileID: 1876151186}
+  statusText: {fileID: 0}
 --- !u!114 &1362665996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2877,6 +2878,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LoginSceneScript
   tmpEmailField: {fileID: 125966145}
   tmpPasswordField: {fileID: 110782347}
+  statusText: {fileID: 0}
+  successSceneName: MainMenu
 --- !u!1 &1375270561
 GameObject:
   m_ObjectHideFlags: 0
