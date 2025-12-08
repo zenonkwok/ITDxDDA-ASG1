@@ -1371,8 +1371,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DatabaseController
   autoInit: 1
   StatusTextField: {fileID: 0}
-  Email: {fileID: 0}
-  Password: {fileID: 0}
   Name: {fileID: 0}
 --- !u!1 &425410336
 GameObject:

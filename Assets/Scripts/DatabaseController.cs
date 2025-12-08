@@ -1,175 +1,125 @@
+using System.Collections;
 using UnityEngine;
+using Firebase;
 using Firebase.Database;
 using Firebase.Extensions;
-using System.Collections.Generic;
+using System;
 using TMPro;
-using Firebase.Auth;
-using UnityEngine.SceneManagement;
 
 public class DatabaseController : MonoBehaviour
 {
+    public static DatabaseController Instance { get; private set; }
+
+    [Header("Firebase")]
+    [SerializeField]
+    private bool autoInit = true;
+
     private Player myPlayer;
 
     public TMP_Text StatusTextField;
-    public TMP_InputField Email;
-    public TMP_InputField Password;
     public TMP_InputField Name;
 
-    public void Signup()
+    private void Awake()
     {
-        // Validate UI fields are assigned
-        if (Email == null || Password == null)
+        if (Instance != null && Instance != this)
         {
-            if (StatusTextField != null) StatusTextField.text = "Signup UI fields not configured.";
-            Debug.LogWarning("Email or Password input field is not assigned on DatabaseController.");
+            Destroy(gameObject);
             return;
         }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
 
-        string emailText = Email.text?.Trim();
-        string passwordText = Password.text;
-
-        if (string.IsNullOrEmpty(emailText) || string.IsNullOrEmpty(passwordText))
+    private void Start()
+    {
+        if (autoInit)
         {
-            if (StatusTextField != null) StatusTextField.text = "Please enter an email and password.";
-            return;
-        }
-
-        var auth = FirebaseAuth.DefaultInstance;
-        if (auth == null)
-        {
-            if (StatusTextField != null) StatusTextField.text = "Firebase Auth not initialized.";
-            Debug.LogError("FirebaseAuth.DefaultInstance is null in Signup().");
-            return;
-        }
-
-        try
-        {
-            var createUserTask = auth.CreateUserWithEmailAndPasswordAsync(emailText, passwordText);
-
-            createUserTask.ContinueWithOnMainThread(task =>
-            {
-                if (StatusTextField == null)
-                {
-                    Debug.LogWarning("StatusTextField not assigned; cannot show signup status to user.");
-                }
-
-                if (task.IsCanceled)
-                {
-                    if (StatusTextField != null) StatusTextField.text = "Signup canceled.";
-                    Debug.LogWarning("Signup task was canceled.");
-                    return;
-                }
-
-                if (task.IsFaulted)
-                {
-                    if (StatusTextField != null) StatusTextField.text = "Failed to create user.";
-                    Debug.LogError("Signup failed: " + (task.Exception != null ? task.Exception.Flatten().Message : "Unknown error"));
-                    return;
-                }
-
-                if (task.IsCompleted)
-                {
-                    if (StatusTextField != null) StatusTextField.text = "User created successfully.";
-                    Debug.Log($"User created, user ID is: {task.Result.User.UserId}");
-
-                    // SAVE THE USER'S PROFILE
-                    try
-                    {
-                        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
-                    }
-                    catch (System.Exception ex)
-                    {
-                        Debug.LogError("Failed to load MainMenu after signup: " + ex.Message);
-                    }
-                }
-            });
-        }
-        catch (System.Exception ex)
-        {
-            if (StatusTextField != null) StatusTextField.text = "Failed to start signup.";
-            Debug.LogException(ex);
+            StartCoroutine(InitFirebase());
         }
     }
 
-    public void SignIn()
+    private IEnumerator InitFirebase()
     {
-        // Validate UI fields are assigned
-        if (Email == null || Password == null)
+        Debug.Log("[DatabaseController] Checking Firebase dependencies...");
+        var checkTask = FirebaseApp.CheckAndFixDependenciesAsync();
+        yield return new WaitUntil(() => checkTask.IsCompleted);
+
+        var status = checkTask.Result;
+        if (status != DependencyStatus.Available)
         {
-            if (StatusTextField != null) StatusTextField.text = "Sign in UI fields not configured.";
-            Debug.LogWarning("Email or Password input field is not assigned on DatabaseController.");
+            Debug.LogWarning("[DatabaseController] Firebase dependencies not available: " + status);
+            yield break;
+        }
+
+        Debug.Log("[DatabaseController] Firebase initialized and ready.");
+    }
+
+    // Public API: fetch the first review child under Restaurants/{restaurantKey}/Reviews
+    public void GetFirstReviewForRestaurant(string restaurantKey, Action<ReviewModel> onComplete)
+    {
+        if (string.IsNullOrEmpty(restaurantKey))
+        {
+            onComplete?.Invoke(null);
             return;
         }
 
-        string emailText = Email.text?.Trim();
-        string passwordText = Password.text;
+        var path = $"Restaurants/{restaurantKey}/Reviews";
+        Debug.Log("[DatabaseController] Querying path: " + path);
 
-        if (string.IsNullOrEmpty(emailText) || string.IsNullOrEmpty(passwordText))
+        var dbRef = FirebaseDatabase.DefaultInstance.GetReference(path);
+        dbRef.GetValueAsync().ContinueWithOnMainThread(task =>
         {
-            if (StatusTextField != null) StatusTextField.text = "Please enter an email and password.";
-            return;
-        }
-
-        var auth = FirebaseAuth.DefaultInstance;
-        if (auth == null)
-        {
-            if (StatusTextField != null) StatusTextField.text = "Firebase Auth not initialized.";
-            Debug.LogError("FirebaseAuth.DefaultInstance is null in SignIn().");
-            return;
-        }
-
-        try
-        {
-            var signInTask = auth.SignInWithEmailAndPasswordAsync(emailText, passwordText);
-
-            signInTask.ContinueWithOnMainThread(task =>
+            if (task.IsFaulted)
             {
-                if (StatusTextField == null)
+                Debug.LogWarning("[DatabaseController] GetValueAsync faulted: " + task.Exception);
+                onComplete?.Invoke(null);
+                return;
+            }
+
+            if (!task.IsCompleted)
+            {
+                Debug.LogWarning("[DatabaseController] GetValueAsync did not complete.");
+                onComplete?.Invoke(null);
+                return;
+            }
+
+            var snapshot = task.Result;
+            if (snapshot == null || !snapshot.Exists)
+            {
+                Debug.Log("[DatabaseController] No reviews found at path: " + path);
+                onComplete?.Invoke(null);
+                return;
+            }
+
+            // pick the first review child and map fields to ReviewModel
+            foreach (var child in snapshot.Children)
+            {
+                if (child == null) continue;
+
+                var id = child.Key;
+                var userName = child.Child("UserName")?.Value?.ToString() ?? "";
+                var remarks = child.Child("Remarks")?.Value?.ToString() ?? "";
+                var ratingVal = child.Child("Rating")?.Value?.ToString() ?? "";
+
+                var review = new ReviewModel
                 {
-                    Debug.LogWarning("StatusTextField not assigned; cannot show sign-in status to user.");
-                }
+                    id = id,
+                    header = string.IsNullOrEmpty(ratingVal) ? "Review" : $"Rating: {ratingVal}",
+                    author = string.IsNullOrEmpty(userName) ? "Anonymous" : userName,
+                    content = string.IsNullOrEmpty(remarks) ? "No remarks." : remarks
+                };
 
-                if (task.IsCanceled)
-                {
-                    if (StatusTextField != null) StatusTextField.text = "Sign-in canceled.";
-                    Debug.LogWarning("Sign-in task was canceled.");
-                    return;
-                }
+                Debug.Log($"[DatabaseController] Found review id={id}, user={userName}, rating={ratingVal}");
+                onComplete?.Invoke(review);
+                return; // only first child
+            }
 
-                if (task.IsFaulted)
-                {
-                    if (StatusTextField != null) StatusTextField.text = "Failed to sign in.";
-                    Debug.LogError("Sign-in failed: " + (task.Exception != null ? task.Exception.Flatten().Message : "Unknown error"));
-                    return;
-                }
-
-                if (task.IsCompleted)
-                {
-                    if (StatusTextField != null) StatusTextField.text = "User signed in successfully.";
-                    Debug.Log($"User signed in, user ID is: {task.Result.User.UserId}");
-
-                    // LOAD THE USER'S PROFILE
-                    try
-                    {
-                        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
-                    }
-                    catch (System.Exception ex)
-                    {
-                        Debug.LogError("Failed to load MainMenu after sign-in: " + ex.Message);
-                    }
-                }
-
-            });
-        }
-        catch (System.Exception ex)
-        {
-            if (StatusTextField != null) StatusTextField.text = "Failed to start sign-in.";
-            Debug.LogException(ex);
-        }
+            onComplete?.Invoke(null);
+        });
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Init()
     {
         var db = FirebaseDatabase.DefaultInstance.RootReference;
 
@@ -205,45 +155,5 @@ public class DatabaseController : MonoBehaviour
 
             Debug.Log($"Player name is: {(myPlayer != null ? myPlayer.name : "<null>")}");
         });
-
-
-        /*
-         * OLD CODE BEFORE CRUD
-         *
-        Player justin = new Player("detach8", "Justin");
-        justin.items.Add(new Item("sword", 2));
-
-        Player steve = new Player("steviewonder", "Steve from Minecraft");
-        steve.items.Add(new Item("pickaxe", 1));
-
-        Player alex = new Player("alexinwonderland", "Alex also from Minecraft");
-        alex.items.Add(new Item("armour", 1));
-
-        // Convert to JSON
-        string justinJson = JsonUtility.ToJson(justin, true);
-        string steveJson = JsonUtility.ToJson(steve, true);
-
-        // Print the JSON strings out
-        Debug.Log(justinJson);
-        Debug.Log(steveJson);
-
-        // Save it in the DB
-        db.Child("players").Child(justin.playerId).SetRawJsonValueAsync(justinJson);
-        db.Child("players").Child(steve.playerId).SetRawJsonValueAsync(steveJson);
-
-        // Using PUSH to add data
-        var newChildReference = db.Child("players").Push();
-
-        // Get the key, and set as Alex's playerId
-        Debug.Log(newChildReference.Key);
-        alex.playerId = newChildReference.Key;
-
-        // Convert alex object to JSON
-        string alexJson = JsonUtility.ToJson(alex); // No pretty print
-        Debug.Log(alexJson);
-
-        // Write to database
-        newChildReference.SetRawJsonValueAsync(alexJson);
-        */
     }
 }
