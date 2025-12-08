@@ -77,7 +77,7 @@ public class SignUpSceneScript : MonoBehaviour
         try
         {
             var createTask = auth.CreateUserWithEmailAndPasswordAsync(email, password);
-            createTask.ContinueWithOnMainThread(task =>
+            _ = createTask.ContinueWithOnMainThread(task =>
             {
                 if (task.IsCanceled)
                 {

@@ -3077,7 +3077,9 @@ GameObject:
   - component: {fileID: 7026799857743934795}
   - component: {fileID: 3764931330024005843}
   - component: {fileID: 2394802335320168584}
-  - component: {fileID: 7561346439667899166}
+  - component: {fileID: 762699269001056527}
+  - component: {fileID: 6941058533508510841}
+  - component: {fileID: 350008637473239419}
   m_Layer: 0
   m_Name: FOODCLUB
   m_TagString: Untagged
@@ -3163,7 +3165,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &7561346439667899166
+--- !u!114 &762699269001056527
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3172,15 +3174,55 @@ MonoBehaviour:
   m_GameObject: {fileID: 6483822764693009592}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f02308e2b0eeb49a38780f766cf942, type: 3}
+  m_Script: {fileID: 11500000, guid: 7e7bfb994dddae74b8172996bf3dd55f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ReadReviewScript
-  reviewHeader: {fileID: 138906665910127978}
-  reviewName: {fileID: 961862454178571931}
-  reviewText: {fileID: 4848660241700503297}
-  placeholderHeader: Review #1
-  placeholderName: John
-  placeholderContent: I love this chicken rice man it's so good
+  m_EditorClassIdentifier: Assembly-CSharp::ReviewUIController
+  locationId: foodclub
+  writeReviewButton: {fileID: 1770357295716355745}
+  viewReviewsButton: {fileID: 8629525795761470934}
+  reviewFormPrefab: {fileID: 0}
+  notepadPrefab: {fileID: 4527371076869805417}
+  spawnPoint: {fileID: 7026799857743934795}
+  horizontalSpacing: 1.2
+  introMenuRoot: {fileID: 7960255885136930846}
+  reviewUiRoot: {fileID: 4601459804869496200}
+--- !u!114 &6941058533508510841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6483822764693009592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d7af55c18748294a8dcc868041dd3b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ReviewFormUI
+  emojiHighlighters:
+  - {fileID: 638901306611417065}
+  - {fileID: 2068299033810634786}
+  - {fileID: 1522676637087851795}
+  - {fileID: 8869971164214976917}
+  - {fileID: 2013708185849566109}
+  commentField: {fileID: 8808404077924363899}
+  submitButton: {fileID: 3465303827096390670}
+  closeButton: {fileID: 9157518540458391020}
+  statusText: {fileID: 0}
+--- !u!114 &350008637473239419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6483822764693009592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6319ebf552afd94428145e718ed205d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ReviewDisplayUI
+  ratingEmoji: {fileID: 0}
+  authorText: {fileID: 961862454178571931}
+  commentText: {fileID: 4848660241700503297}
 --- !u!1 &7040907323590570101
 GameObject:
   m_ObjectHideFlags: 0
@@ -4273,6 +4315,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8223800670564218768}
     m_Modifications:
+    - target: {fileID: 280909564432312264, guid: a6cf32b716a261f4fab2319772aab224, type: 3}
+      propertyPath: m_Name
+      value: VeryHappyEmoji
+      objectReference: {fileID: 0}
     - target: {fileID: 311584865377977044, guid: a6cf32b716a261f4fab2319772aab224, type: 3}
       propertyPath: m_Name
       value: VeryHappyEmoji
@@ -4347,6 +4393,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2030090715931005870, guid: a6cf32b716a261f4fab2319772aab224, type: 3}
   m_PrefabInstance: {fileID: 2528102487466927805}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8869971164214976917 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6344982632224425768, guid: a6cf32b716a261f4fab2319772aab224, type: 3}
+  m_PrefabInstance: {fileID: 2528102487466927805}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed2205ab20b8be948848f417a6fcc81a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::XRHighlightOnSelect
 --- !u!1001 &2640433991721306121
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4715,6 +4772,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 7ead75dbdd815ae419b130d15c0bba35, type: 2}
+    - target: {fileID: 6378993408752626096, guid: 8096711635eb6fa46a7cc2b827f6e04d, type: 3}
+      propertyPath: m_Name
+      value: BadEmoji
+      objectReference: {fileID: 0}
     - target: {fileID: 6601844083885561067, guid: 8096711635eb6fa46a7cc2b827f6e04d, type: 3}
       propertyPath: m_LocalScale.x
       value: 10
@@ -4780,6 +4841,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8096711635eb6fa46a7cc2b827f6e04d, type: 3}
+--- !u!114 &2068299033810634786 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8966003378250405161, guid: 8096711635eb6fa46a7cc2b827f6e04d, type: 3}
+  m_PrefabInstance: {fileID: 6978810938501651723}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed2205ab20b8be948848f417a6fcc81a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::XRHighlightOnSelect
 --- !u!4 &4271595688590248416 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6601844083885561067, guid: 8096711635eb6fa46a7cc2b827f6e04d, type: 3}
@@ -4798,6 +4870,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 7ead75dbdd815ae419b130d15c0bba35, type: 2}
     - target: {fileID: 8032139405829391919, guid: 8c0198f5773a3fb4e9ddb42105d2b19f, type: 3}
+      propertyPath: m_Name
+      value: MidEmoji
+      objectReference: {fileID: 0}
+    - target: {fileID: 8635460294938079241, guid: 8c0198f5773a3fb4e9ddb42105d2b19f, type: 3}
       propertyPath: m_Name
       value: MidEmoji
       objectReference: {fileID: 0}
@@ -4867,6 +4943,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8705963419776397199, guid: 8c0198f5773a3fb4e9ddb42105d2b19f, type: 3}
   m_PrefabInstance: {fileID: 7506020455209617483}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1522676637087851795 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9010330116802063704, guid: 8c0198f5773a3fb4e9ddb42105d2b19f, type: 3}
+  m_PrefabInstance: {fileID: 7506020455209617483}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed2205ab20b8be948848f417a6fcc81a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::XRHighlightOnSelect
 --- !u!1001 &7663690045450446733
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4939,11 +5026,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: HappyEmoji
       objectReference: {fileID: 0}
+    - target: {fileID: 8421516252214123993, guid: f30c6c0955e90834fbca6d6fb28f6806, type: 3}
+      propertyPath: m_Name
+      value: HappyEmoji
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f30c6c0955e90834fbca6d6fb28f6806, type: 3}
+--- !u!114 &2013708185849566109 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8190013157542556688, guid: f30c6c0955e90834fbca6d6fb28f6806, type: 3}
+  m_PrefabInstance: {fileID: 7663690045450446733}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed2205ab20b8be948848f417a6fcc81a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::XRHighlightOnSelect
 --- !u!4 &2428577049171557974 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5471570681433692635, guid: f30c6c0955e90834fbca6d6fb28f6806, type: 3}
@@ -5017,6 +5119,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7242624711092866880, guid: dfce344bddbc04646a8caa49adee6696, type: 3}
+      propertyPath: m_Name
+      value: AwfulEmoji
+      objectReference: {fileID: 0}
     - target: {fileID: 7274594502998751544, guid: dfce344bddbc04646a8caa49adee6696, type: 3}
       propertyPath: m_Name
       value: AwfulEmoji
@@ -5026,6 +5132,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfce344bddbc04646a8caa49adee6696, type: 3}
+--- !u!114 &638901306611417065 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8440943696874500934, guid: dfce344bddbc04646a8caa49adee6696, type: 3}
+  m_PrefabInstance: {fileID: 9077450125929729199}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed2205ab20b8be948848f417a6fcc81a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::XRHighlightOnSelect
 --- !u!4 &2355315161800966755 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6725658075373555404, guid: dfce344bddbc04646a8caa49adee6696, type: 3}
