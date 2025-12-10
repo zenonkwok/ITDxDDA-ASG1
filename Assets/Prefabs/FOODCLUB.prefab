@@ -1678,8 +1678,8 @@ Transform:
   - {fileID: 2355315161800966755}
   - {fileID: 4271595688590248416}
   - {fileID: 1223701807495440324}
-  - {fileID: 4555895773847205139}
   - {fileID: 2428577049171557974}
+  - {fileID: 4555895773847205139}
   m_Father: {fileID: 6147018828114760776}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3094957716069949134
@@ -2367,6 +2367,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 615210620560751260}
+  - component: {fileID: 8557133609969535780}
+  - component: {fileID: 5152721308256687576}
+  - component: {fileID: 4277059182171510158}
   m_Layer: 0
   m_Name: FOODCLUB
   m_TagString: Untagged
@@ -2391,6 +2394,65 @@ Transform:
   - {fileID: 511196994207018434}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8557133609969535780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4527371076869805417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d014a6744e640c4087e2f0ff2ba177c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NotepadController
+  locationId: FoodClubChickenRice
+  mainScreen: {fileID: 7960255885136930846}
+  reviewScreen: {fileID: 4601459804869496200}
+  ratePlaceButton: {fileID: 1770357295716355745}
+  viewReviewsButton: {fileID: 8629525795761470934}
+  closeReviewFormButton: {fileID: 0}
+  reviewNotepadPrefab: {fileID: 0}
+  spawnPoint: {fileID: 0}
+  horizontalSpacing: 1.5
+--- !u!114 &5152721308256687576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4527371076869805417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ad39e6f794408745b706632847cbe2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ReviewForm
+  locationId: FoodClubChickenRice
+  emojiHighlighters:
+  - {fileID: 638901306611417065}
+  - {fileID: 2068299033810634786}
+  - {fileID: 1522676637087851795}
+  - {fileID: 2013708185849566109}
+  - {fileID: 8869971164214976917}
+  commentsInput: {fileID: 8808404077924363899}
+  submitButton: {fileID: 3465303827096390670}
+  closeButton: {fileID: 9157518540458391020}
+  statusText: {fileID: 6418201005449593520}
+--- !u!114 &4277059182171510158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4527371076869805417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78445de33e3cb8247a8cb77f26686f0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ReviewDisplay
+  emojiText: {fileID: 0}
+  userNameText: {fileID: 0}
+  remarksText: {fileID: 0}
 --- !u!1 &4601459804869496200
 GameObject:
   m_ObjectHideFlags: 0
@@ -2401,7 +2463,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6147018828114760776}
   m_Layer: 0
-  m_Name: 'Reviewing '
+  m_Name: reviewScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2681,7 +2743,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 511196994207018434}
-  - component: {fileID: 6310238239136925860}
   m_Layer: 0
   m_Name: Database
   m_TagString: Untagged
@@ -2704,21 +2765,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 615210620560751260}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6310238239136925860
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5171442322346270308}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fa25f904a31f95479b0d4ef9789e759, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DatabaseController
-  autoInit: 1
-  StatusTextField: {fileID: 0}
-  Name: {fileID: 0}
 --- !u!1 &5196357680868608052
 GameObject:
   m_ObjectHideFlags: 0
@@ -3137,9 +3183,6 @@ GameObject:
   - component: {fileID: 7026799857743934795}
   - component: {fileID: 3764931330024005843}
   - component: {fileID: 2394802335320168584}
-  - component: {fileID: 762699269001056527}
-  - component: {fileID: 6941058533508510841}
-  - component: {fileID: 350008637473239419}
   m_Layer: 0
   m_Name: FOODCLUB
   m_TagString: Untagged
@@ -3225,64 +3268,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &762699269001056527
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6483822764693009592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e7bfb994dddae74b8172996bf3dd55f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ReviewUIController
-  locationId: foodclub
-  writeReviewButton: {fileID: 1770357295716355745}
-  viewReviewsButton: {fileID: 8629525795761470934}
-  reviewFormPrefab: {fileID: 0}
-  notepadPrefab: {fileID: 4527371076869805417}
-  spawnPoint: {fileID: 7026799857743934795}
-  horizontalSpacing: 1.2
-  introMenuRoot: {fileID: 7960255885136930846}
-  reviewUiRoot: {fileID: 4601459804869496200}
---- !u!114 &6941058533508510841
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6483822764693009592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d7af55c18748294a8dcc868041dd3b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ReviewFormUI
-  emojiHighlighters:
-  - {fileID: 638901306611417065}
-  - {fileID: 2068299033810634786}
-  - {fileID: 1522676637087851795}
-  - {fileID: 8869971164214976917}
-  - {fileID: 2013708185849566109}
-  commentField: {fileID: 8808404077924363899}
-  submitButton: {fileID: 3465303827096390670}
-  closeButton: {fileID: 9157518540458391020}
-  statusText: {fileID: 0}
---- !u!114 &350008637473239419
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6483822764693009592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6319ebf552afd94428145e718ed205d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ReviewDisplayUI
-  ratingEmoji: {fileID: 0}
-  authorText: {fileID: 961862454178571931}
-  commentText: {fileID: 4848660241700503297}
 --- !u!1 &7040907323590570101
 GameObject:
   m_ObjectHideFlags: 0
@@ -3569,7 +3554,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7076359891594912550}
-  - component: {fileID: 3847856680387547075}
   m_Layer: 0
   m_Name: ReadReviews
   m_TagString: Untagged
@@ -3602,28 +3586,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &3847856680387547075
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7903272417129791395}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f02308e2b0eeb49a38780f766cf942, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ReadReviewScript
-  reviewHeader: {fileID: 138906665910127978}
-  reviewName: {fileID: 961862454178571931}
-  reviewText: {fileID: 4848660241700503297}
-  placeholderHeader: Reviews
-  placeholderName: Anonymous
-  placeholderContent: No reviews available.
-  autoLoadExample: 0
-  exampleReviewId: example1
-  useDatabaseController: 1
-  restaurantKey: FoodClubChickenRice
 --- !u!1 &7960255885136930846
 GameObject:
   m_ObjectHideFlags: 0
@@ -3634,7 +3596,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7492171847070039886}
   m_Layer: 0
-  m_Name: Intro Menu
+  m_Name: mainScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
