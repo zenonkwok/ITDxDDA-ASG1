@@ -103,11 +103,11 @@ public class ReviewForm : MonoBehaviour
         string userName = "Player";
 
         ShowStatus("Submitting...");
-        Debug.Log($"[ReviewForm.OnSubmitClicked] About to call ReviewManager.SaveReview");
+        Debug.Log($"[ReviewForm.OnSubmitClicked] About to call DatabaseScript.SaveReview");
         Debug.Log($"[ReviewForm.OnSubmitClicked] LocationId={locationId}, Rating={selectedRating}, UserName={userName}, Remarks={remarks}");
-        Debug.Log($"[ReviewForm.OnSubmitClicked] ReviewManager.Instance exists: {ReviewManager.Instance != null}");
+        Debug.Log($"[ReviewForm.OnSubmitClicked] DatabaseScript.Instance exists: {DatabaseScript.Instance != null}");
 
-        ReviewManager.Instance.SaveReview(locationId, remarks, userName, selectedRating, success =>
+        DatabaseScript.Instance.SaveReview(locationId, remarks, userName, selectedRating, success =>
         {
             Debug.Log($"[ReviewForm.OnSubmitClicked] SaveReview callback received with success={success}");
 

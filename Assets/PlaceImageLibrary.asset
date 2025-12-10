@@ -27,3 +27,13 @@ MonoBehaviour:
     m_SpecifySize: 1
     m_Name: FOODCLUB
     m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5049420267710458930
+      m_GuidHigh: 12199567628107801733
+    m_SerializedTextureGuid:
+      m_GuidLow: 3086226067526512510
+      m_GuidHigh: 18371457367073414121
+    m_Size: {x: 0.5, y: 0.35182926}
+    m_SpecifySize: 1
+    m_Name: Chicken-Rice
+    m_Texture: {fileID: 0}
