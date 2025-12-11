@@ -37,3 +37,13 @@ MonoBehaviour:
     m_SpecifySize: 1
     m_Name: Chicken-Rice
     m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 4698473861679177079
+      m_GuidHigh: 2624004572518291849
+    m_SerializedTextureGuid:
+      m_GuidLow: 14106642125913372358
+      m_GuidHigh: 4424494383405472426
+    m_Size: {x: 0.3, y: 0.2997124}
+    m_SpecifySize: 1
+    m_Name: Sushi
+    m_Texture: {fileID: 0}

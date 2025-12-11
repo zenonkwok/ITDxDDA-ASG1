@@ -212,7 +212,21 @@ public class DatabaseScript : MonoBehaviour
             return;
         }
 
-        dbRef.Child(locationId).Child("FoodStats").GetValueAsync().ContinueWithOnMainThread(task =>
+        // Allow passing locationId like "Location/Item" or "Location:Item"
+        var baseLocation = locationId;
+        if (locationId.Contains("/") || locationId.Contains(":"))
+        {
+            var sep = locationId.Contains("/") ? '/' : ':';
+            var parts = locationId.Split(sep);
+            if (parts.Length >= 2)
+            {
+                baseLocation = parts[0];
+                if (string.IsNullOrEmpty(itemKey))
+                    itemKey = parts[1];
+            }
+        }
+
+        dbRef.Child(baseLocation).Child("FoodStats").GetValueAsync().ContinueWithOnMainThread(task =>
         {
             var result = new FoodStats();
 
@@ -226,30 +240,21 @@ public class DatabaseScript : MonoBehaviour
             var snapshot = task.Result;
             if (!snapshot.Exists)
             {
-                Debug.Log($"No FoodStats found for {locationId}");
+                Debug.Log($"No FoodStats found for {baseLocation}");
                 onComplete?.Invoke(result);
                 return;
             }
 
             try
             {
-                // Case A: FoodStats directly contains the fields (check Allergies and Ingredients independently)
-                bool hasAllergies = snapshot.Child("Allergies").Exists;
-                bool hasIngredients = snapshot.Child("Ingredients").Exists;
-                if (hasAllergies || hasIngredients || snapshot.Child("Taste").Exists || snapshot.Child("Description").Exists || snapshot.Child("OverallCustomerRating").Exists)
+                // Case A: FoodStats directly contains the expected fields
+                if (snapshot.Child("Allergies").Exists || snapshot.Child("Taste").Exists ||
+                    snapshot.Child("Description").Exists || snapshot.Child("OverallCustomerRating").Exists)
                 {
-                    result.allergies = hasAllergies ? snapshot.Child("Allergies").Value?.ToString() ?? "" : "";
-                    // Do NOT fallback: only set ingredients if the Ingredients key exists
-                    result.ingredients = hasIngredients ? snapshot.Child("Ingredients").Value?.ToString() ?? "" : "";
-
+                    result.allergies = snapshot.Child("Allergies").Value?.ToString() ?? "";
                     result.taste = snapshot.Child("Taste").Value?.ToString() ?? "";
                     result.description = snapshot.Child("Description").Value?.ToString() ?? "";
-
-                    var overallVal = snapshot.Child("OverallCustomerRating").Value;
-                    if (overallVal != null && float.TryParse(overallVal.ToString(), out var parsed))
-                        result.overallCustomerRating = parsed;
-                    else
-                        result.overallCustomerRating = 0f;
+                    result.overallCustomerRating = snapshot.Child("OverallCustomerRating").Value?.ToString() ?? "";
                 }
                 else
                 {
@@ -262,41 +267,34 @@ public class DatabaseScript : MonoBehaviour
                     }
                     else
                     {
-                        // pick the first child if itemKey not specified or not found
+                        // pick the first child that contains expected fields
                         foreach (var child in snapshot.Children)
                         {
-                            targetNode = child;
-                            break;
+                            if (child.Child("Allergies").Exists || child.Child("Taste").Exists ||
+                                child.Child("Description").Exists || child.Child("OverallCustomerRating").Exists)
+                            {
+                                targetNode = child;
+                                break;
+                            }
                         }
                     }
 
                     if (targetNode != null)
                     {
-                        bool childHasAllergies = targetNode.Child("Allergies").Exists;
-                        bool childHasIngredients = targetNode.Child("Ingredients").Exists;
-
-                        result.allergies = childHasAllergies ? targetNode.Child("Allergies").Value?.ToString() ?? "" : "";
-                        // Do NOT fallback: only set ingredients if the Ingredients key exists
-                        result.ingredients = childHasIngredients ? targetNode.Child("Ingredients").Value?.ToString() ?? "" : "";
-
+                        result.allergies = targetNode.Child("Allergies").Value?.ToString() ?? "";
                         result.taste = targetNode.Child("Taste").Value?.ToString() ?? "";
                         result.description = targetNode.Child("Description").Value?.ToString() ?? "";
-
-                        var overallVal = targetNode.Child("OverallCustomerRating").Value;
-                        if (overallVal != null && float.TryParse(overallVal.ToString(), out var parsed))
-                            result.overallCustomerRating = parsed;
-                        else
-                            result.overallCustomerRating = 0f;
+                        result.overallCustomerRating = targetNode.Child("OverallCustomerRating").Value?.ToString() ?? "";
                     }
                     else
                     {
-                        Debug.LogWarning($"GetFoodStats: No suitable child node found under {locationId}/FoodStats");
+                        Debug.LogWarning($"GetFoodStats: No suitable child node found under {baseLocation}/FoodStats");
                     }
                 }
             }
             catch (Exception ex)
             {
-                Debug.LogWarning($"Error parsing FoodStats for {locationId}: {ex.Message}");
+                Debug.LogWarning($"Error parsing FoodStats for {baseLocation}: {ex.Message}");
             }
 
             onComplete?.Invoke(result);
@@ -332,15 +330,46 @@ public class ReviewData
 [Serializable]
 public class FoodStats
 {
-    // keep ingredients for backward compatibility and add allergies to match updated JSON
-    public string ingredients = "";
+    // removed ingredients (does not exist in DB)
     public string allergies = "";
     public string taste = "";
     public string description = "";
-    public float overallCustomerRating = 0f;
 
+    // changed to string so we can display raw values like "4.2/5"
+    public string overallCustomerRating = "";
+
+    // new: parse the stored string into a float (best-effort)
+    public float GetOverallRatingFloat()
+    {
+        if (string.IsNullOrEmpty(overallCustomerRating))
+            return 0f;
+
+        // handle formats like "4.2/5" -> take the left side before '/'
+        var raw = overallCustomerRating;
+        var parts = raw.Split('/');
+        var candidate = parts.Length > 0 ? parts[0].Trim() : raw.Trim();
+
+        // try parse using invariant culture first
+        if (float.TryParse(candidate, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var val))
+            return val;
+
+        // fallback: normalize commas to dots and strip other chars
+        var sb = new System.Text.StringBuilder();
+        foreach (var c in candidate)
+        {
+            if (char.IsDigit(c) || c == '.' || c == ',')
+                sb.Append(c == ',' ? '.' : c);
+        }
+
+        if (float.TryParse(sb.ToString(), System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out val))
+            return val;
+
+        return 0f;
+    }
+
+    // return the stored string for display
     public string OverallRatingAsString(int decimals = 1)
     {
-        return overallCustomerRating.ToString($"F{decimals}");
+        return overallCustomerRating ?? "";
     }
 }
