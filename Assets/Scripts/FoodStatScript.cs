@@ -41,32 +41,24 @@ public class FoodStatScript : MonoBehaviour
 			if (tasteText != null) tasteText.text = string.IsNullOrEmpty(stats.taste) ? "—" : stats.taste;
 			if (descriptionText != null) descriptionText.text = string.IsNullOrEmpty(stats.description) ? "—" : stats.description;
 
-			float overallRating = 0f;
-			if (stats != null)
-			{
-				overallRating = stats.GetOverallRatingFloat();
-			}
+			float overallRating = stats != null ? stats.GetOverallRatingFloat() : 0f;
 
-			if (overallRating > 4.0f)
+			// Normalize display: prefer tiers; fallback to raw string if parsing failed but string exists.
+			if (overallRating <= 0f)
 			{
-				overallRatingText.text = "Highly Rated!";
+				overallRatingText.text = string.IsNullOrEmpty(stats?.overallCustomerRating) ? "No rating" : stats.overallCustomerRating;
 			}
-
-			if (overallRating > 2.0f && overallRating <= 4.0f)
-			{
-				overallRatingText.text = "Moderately Rated";
-			}
-			else if (overallRating > 0.0f && overallRating <= 2.0f)
+			else if (overallRating <= 2.0f)
 			{
 				overallRatingText.text = "Low Rated";
 			}
-			else if (overallRating > 0f)
+			else if (overallRating > 2.0f && overallRating <= 4.0f)
 			{
-				overallRatingText.text = stats.OverallRatingAsString(1);
+				overallRatingText.text = "Moderately Rated";
 			}
-			else
+			else // > 4.0f (cap at 5 assumed)
 			{
-				overallRatingText.text = "No rating";
+				overallRatingText.text = "Highly Rated!";
 			}
 		});
 	}
