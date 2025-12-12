@@ -25,7 +25,7 @@ public class SignUpSceneScript : MonoBehaviour
     // Public programmatic wrapper you can call with explicit credentials.
     public void SignUpWithEmail(string email, string password)
     {
-        InitializeFirebaseAndSignUp(email, password);
+        _ = InitializeFirebaseAndSignUp(email, password);
     }
 
     // Called via a Unity UI Button (no parameters). Reads assigned input fields.

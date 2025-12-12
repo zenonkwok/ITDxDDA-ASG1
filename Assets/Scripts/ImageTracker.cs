@@ -58,6 +58,14 @@ public class ImageTracker : MonoBehaviour
         {
             if (trackedImage.trackingState == TrackingState.Limited || trackedImage.trackingState == TrackingState.None)
             {
+                // Check if notepad should persist (e.g., during review viewing)
+                var notepadController = spawnedPrefabs[trackedImage.referenceImage.name].GetComponent<NotepadController>();
+                if (notepadController != null && notepadController.ShouldPersist())
+                {
+                    // Keep notepad active during review viewing
+                    return;
+                }
+
                 //Disable the associated content
                 spawnedPrefabs[trackedImage.referenceImage.name].transform.SetParent(null);
                 spawnedPrefabs[trackedImage.referenceImage.name].SetActive(false);

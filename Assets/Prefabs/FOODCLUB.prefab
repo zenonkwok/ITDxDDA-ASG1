@@ -648,7 +648,7 @@ GameObject:
   - component: {fileID: 8963183799709709211}
   - component: {fileID: 6758669592381452335}
   m_Layer: 0
-  m_Name: Author&RatingText (2)
+  m_Name: Rating
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2193,7 +2193,7 @@ GameObject:
   - component: {fileID: 4506439541670216984}
   - component: {fileID: 6710281696069699376}
   m_Layer: 0
-  m_Name: Author&RatingText (1)
+  m_Name: Remarks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2507,6 +2507,7 @@ GameObject:
   - component: {fileID: 615210620560751260}
   - component: {fileID: 8557133609969535780}
   - component: {fileID: 5152721308256687576}
+  - component: {fileID: 6288901495570065375}
   m_Layer: 0
   m_Name: FOODCLUB
   m_TagString: Untagged
@@ -2549,9 +2550,11 @@ MonoBehaviour:
   ratePlaceButton: {fileID: 1770357295716355745}
   viewReviewsButton: {fileID: 8629525795761470934}
   closeReviewFormButton: {fileID: 0}
-  reviewNotepadPrefab: {fileID: 0}
-  spawnPoint: {fileID: 0}
-  horizontalSpacing: 1.5
+  exitReviewModeButton: {fileID: 5843843668966310118}
+  reviewNotepadPrefab: {fileID: 4527371076869805417}
+  spawnPoint: {fileID: 615210620560751260}
+  horizontalSpacing: 0.6
+  verticalSpacing: 0.8
 --- !u!114 &5152721308256687576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2575,6 +2578,27 @@ MonoBehaviour:
   submitButton: {fileID: 3465303827096390670}
   closeButton: {fileID: 9157518540458391020}
   statusText: {fileID: 6418201005449593520}
+--- !u!114 &6288901495570065375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4527371076869805417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78445de33e3cb8247a8cb77f26686f0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ReviewDisplay
+  headerText: {fileID: 138906665910127978}
+  userNameText: {fileID: 961862454178571931}
+  remarksText: {fileID: 4848660241700503297}
+  emojiModels:
+  - {fileID: 3592272062656533745}
+  - {fileID: 6837930101460993636}
+  - {fileID: 4036441291623441018}
+  - {fileID: 6708160310093305808}
+  - {fileID: 2375169902023822045}
 --- !u!1 &4601459804869496200
 GameObject:
   m_ObjectHideFlags: 0
@@ -3724,7 +3748,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7492171847070039886
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4069,8 +4093,8 @@ Transform:
   - {fileID: 610390729204491013}
   - {fileID: 7776840309745970645}
   - {fileID: 3432444776499039194}
-  - {fileID: 4073752676499233703}
   - {fileID: 5436457656023705369}
+  - {fileID: 4073752676499233703}
   m_Father: {fileID: 7076359891594912550}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8722210615172224384
@@ -4601,7 +4625,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6738772239850580242, guid: f30c6c0955e90834fbca6d6fb28f6806, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7330006421988617695, guid: f30c6c0955e90834fbca6d6fb28f6806, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -4618,6 +4642,11 @@ PrefabInstance:
 --- !u!4 &5436457656023705369 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5471570681433692635, guid: f30c6c0955e90834fbca6d6fb28f6806, type: 3}
+  m_PrefabInstance: {fileID: 44123284349058754}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6708160310093305808 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6738772239850580242, guid: f30c6c0955e90834fbca6d6fb28f6806, type: 3}
   m_PrefabInstance: {fileID: 44123284349058754}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2528102487466927805
@@ -4801,6 +4830,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6cf32b716a261f4fab2319772aab224, type: 3}
+--- !u!1 &2375169902023822045 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 311584865377977044, guid: a6cf32b716a261f4fab2319772aab224, type: 3}
+  m_PrefabInstance: {fileID: 2640433991721306121}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4073752676499233703 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2030090715931005870, guid: a6cf32b716a261f4fab2319772aab224, type: 3}
@@ -4890,6 +4924,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8096711635eb6fa46a7cc2b827f6e04d, type: 3}
+--- !u!1 &6837930101460993636 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7969014036829519706, guid: 8096711635eb6fa46a7cc2b827f6e04d, type: 3}
+  m_PrefabInstance: {fileID: 3491016736228751678}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7776840309745970645 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6601844083885561067, guid: 8096711635eb6fa46a7cc2b827f6e04d, type: 3}
@@ -4984,6 +5023,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6725658075373555404, guid: dfce344bddbc04646a8caa49adee6696, type: 3}
   m_PrefabInstance: {fileID: 6138086613177871817}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3592272062656533745 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7274594502998751544, guid: dfce344bddbc04646a8caa49adee6696, type: 3}
+  m_PrefabInstance: {fileID: 6138086613177871817}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6301580192356754517
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5071,6 +5115,11 @@ PrefabInstance:
 --- !u!4 &3432444776499039194 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8705963419776397199, guid: 8c0198f5773a3fb4e9ddb42105d2b19f, type: 3}
+  m_PrefabInstance: {fileID: 6301580192356754517}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4036441291623441018 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8032139405829391919, guid: 8c0198f5773a3fb4e9ddb42105d2b19f, type: 3}
   m_PrefabInstance: {fileID: 6301580192356754517}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6978810938501651723

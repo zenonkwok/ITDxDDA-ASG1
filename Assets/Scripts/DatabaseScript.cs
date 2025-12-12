@@ -323,8 +323,8 @@ public class ReviewData
         };
     }
 
-    public bool IsPositive() => rating >= 4;
-    public bool IsNegative() => rating <= 2;
+    public bool IsPositive() => rating > 3;
+    public bool IsNegative() => rating < 3;
 }
 
 [Serializable]
