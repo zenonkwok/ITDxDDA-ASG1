@@ -38,12 +38,22 @@ MonoBehaviour:
     m_Name: Chicken-Rice
     m_Texture: {fileID: 0}
   - m_SerializedGuid:
-      m_GuidLow: 4698473861679177079
-      m_GuidHigh: 2624004572518291849
+      m_GuidLow: 4638756757098153289
+      m_GuidHigh: 7422411515539797147
     m_SerializedTextureGuid:
-      m_GuidLow: 14106642125913372358
-      m_GuidHigh: 4424494383405472426
-    m_Size: {x: 0.3, y: 0.2997124}
+      m_GuidLow: 1064217305302027407
+      m_GuidHigh: 10976242519497380795
+    m_Size: {x: 0.3, y: 0.3}
     m_SpecifySize: 1
-    m_Name: Sushi
+    m_Name: Kebab
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5059892393357320762
+      m_GuidHigh: 11239646489978549395
+    m_SerializedTextureGuid:
+      m_GuidLow: 16439487352329563725
+      m_GuidHigh: 13778744041898625145
+    m_Size: {x: 0.3, y: 0.2}
+    m_SpecifySize: 1
+    m_Name: BakedRice
     m_Texture: {fileID: 0}
