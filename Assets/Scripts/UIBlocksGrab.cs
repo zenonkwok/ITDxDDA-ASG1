@@ -32,7 +32,14 @@ public class UIBlocksGrab : MonoBehaviour
 
     void Update()
     {
-        // If pointer/touch is over UI, only allow UI interactions
+        // If grab is already active, keep grabbable layers enabled even when hovering UI
+        if (rayInteractor.hasSelection)
+        {
+            rayInteractor.interactionLayers = combinedMask;
+            return;
+        }
+
+        // Otherwise, when hovering UI, only allow UI interactions
         bool overUI = EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(-1);
         rayInteractor.interactionLayers = overUI ? uiLayerMask : combinedMask;
     }

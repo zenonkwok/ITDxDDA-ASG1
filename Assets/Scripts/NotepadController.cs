@@ -30,6 +30,17 @@ public class NotepadController : MonoBehaviour
     private bool isReviewDisplayNotepad = false;
     private bool isViewingReviews = false;
 
+    // Cache the starting pose (relative to parent/image) so we can restore after navigating back
+    private Vector3 initialLocalPosition;
+    private Quaternion initialLocalRotation;
+    private Vector3 initialLocalScale;
+    private bool hasCachedInitialPose = false;
+
+    private void OnEnable()
+    {
+        CacheInitialPoseIfNeeded();
+    }
+
     private void Start()
     {
         if (ratePlaceButton) ratePlaceButton.onClick.AddListener(ShowReviewScreen);
@@ -53,6 +64,10 @@ public class NotepadController : MonoBehaviour
         Debug.Log("Showing main screen");
         if (!isViewingReviews)
         {
+            if (!isReviewDisplayNotepad)
+            {
+                ResetNotepadTransform();
+            }
             if (mainScreen) mainScreen.SetActive(true);
             if (reviewScreen) reviewScreen.SetActive(false);
         }
@@ -198,6 +213,11 @@ public class NotepadController : MonoBehaviour
             display.ShowReview(null);
         }
         
+        if (!isReviewDisplayNotepad)
+        {
+            ResetNotepadTransform();
+        }
+
         ShowMainScreen();
         Debug.Log("[NotepadController] Cleared all spawned notepads and restored main screen");
     }
@@ -322,5 +342,22 @@ public class NotepadController : MonoBehaviour
     public void ExitReviewMode()
     {
         ClearSpawnedNotepads();
+    }
+
+    private void ResetNotepadTransform()
+    {
+        CacheInitialPoseIfNeeded();
+        transform.localPosition = initialLocalPosition;
+        transform.localRotation = initialLocalRotation;
+        transform.localScale = initialLocalScale;
+    }
+
+    private void CacheInitialPoseIfNeeded()
+    {
+        if (hasCachedInitialPose) return;
+        initialLocalPosition = transform.localPosition;
+        initialLocalRotation = transform.localRotation;
+        initialLocalScale = transform.localScale;
+        hasCachedInitialPose = true;
     }
 }
