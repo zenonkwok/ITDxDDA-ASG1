@@ -57,3 +57,23 @@ MonoBehaviour:
     m_SpecifySize: 1
     m_Name: BakedRice
     m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 4667930979478393137
+      m_GuidHigh: 9264810635819469741
+    m_SerializedTextureGuid:
+      m_GuidLow: 15399048650586241086
+      m_GuidHigh: 10436840141058157449
+    m_Size: {x: 0, y: 0}
+    m_SpecifySize: 0
+    m_Name: TURKISHKEBAB
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5266978013985497337
+      m_GuidHigh: 15948521369723556029
+    m_SerializedTextureGuid:
+      m_GuidLow: 4329283773642919935
+      m_GuidHigh: 8250738013795634459
+    m_Size: {x: 0, y: 0}
+    m_SpecifySize: 0
+    m_Name: TURKISHBAKEDRICE
+    m_Texture: {fileID: 0}

@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: SimulationEnvironmentAssetsManager
   m_EditorClassIdentifier: 
   m_EnvironmentPrefabPaths:
-  - Assets/Prefabs/FoodieSceneEnvironment.prefab
   - Assets/Prefabs/ReviewEnvironment.prefab
   - Packages/com.unity.xr.arfoundation/Assets/Prefabs/DefaultSimulationEnvironment.prefab
   m_FallbackAtEndOfList: 1
