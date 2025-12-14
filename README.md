@@ -2,9 +2,8 @@
 Repository for ITD x DDA Assignment 1
 
 # Controls:
-* WASD to move
-* Left-Click on mouse to look around
-* Right Click to interact with UI buttons & grab the review notepads 
+* Tap to interact with buttons
+* Tap and hold to move notepads around.
 
 # Goal of the app:
 To assist students in making the right decision on the place to eat as well as what food item to eat/order!!!
@@ -13,7 +12,10 @@ To assist students in making the right decision on the place to eat as well as w
 Android Smartphones
 
 # Known bugs:
-NIL aka we havent encountered any so far... 
+* Image tracking does not work on mobile
+
+# Limitations
+The overall customer rating seen on the food stats notepad is not calculated based on the reviews made by users and is just hard coded in the firebase realtime database
 
 # Content Displayed
 ## Login Scene
@@ -88,9 +90,6 @@ NIL aka we havent encountered any so far...
 1. Hover over the picture of the food item you want to know more about.
 2. After hovering, a 3d model of the respective food item will appear with a notepad detailing the allergy content, taste, description and overall customer rating of the food.
 3. To despawn the 3d model, simply look away from the picture of the food item.
-
-# Limitations
-The overall customer rating seen on the food stats notepad is not calculated based on the reviews made by users and is just hard coded in the firebase realtime database
 
 # Credits:
 
