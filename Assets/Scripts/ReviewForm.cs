@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Firebase.Auth;
 
 /// <summary>
 /// Attach to the review form UI - handles emoji selection and submission
@@ -100,7 +101,9 @@ public class ReviewForm : MonoBehaviour
         }
 
         string remarks = commentsInput ? commentsInput.text : "";
-        string userName = "Player";
+        
+        // Get the current user's email from Firebase and extract the username part
+        string userName = GetEmailUsername();
 
         ShowStatus("Submitting...");
         Debug.Log($"[ReviewForm.OnSubmitClicked] About to call DatabaseScript.SaveReview");
@@ -142,4 +145,45 @@ public class ReviewForm : MonoBehaviour
         locationId = newLocationId;
         Debug.Log($"ReviewForm location set to: {locationId}");
     }
+
+    /// <summary>
+    /// Gets the current logged-in user's email and extracts the username part (before @)
+    /// </summary>
+    private string GetEmailUsername()
+    {
+        try
+        {
+            var auth = FirebaseAuth.DefaultInstance;
+            if (auth == null || auth.CurrentUser == null)
+            {
+                Debug.LogWarning("[ReviewForm.GetEmailUsername] Firebase Auth not available or no user logged in");
+                return "Anonymous";
+            }
+
+            string email = auth.CurrentUser.Email;
+            if (string.IsNullOrEmpty(email))
+            {
+                Debug.LogWarning("[ReviewForm.GetEmailUsername] User email is empty");
+                return "Anonymous";
+            }
+
+            // Extract the part before @
+            int atIndex = email.IndexOf('@');
+            if (atIndex > 0)
+            {
+                string username = email.Substring(0, atIndex);
+                Debug.Log($"[ReviewForm.GetEmailUsername] Extracted username: {username} from email: {email}");
+                return username;
+            }
+
+            Debug.LogWarning($"[ReviewForm.GetEmailUsername] Email format invalid: {email}");
+            return "Anonymous";
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"[ReviewForm.GetEmailUsername] Exception: {ex.Message}");
+            return "Anonymous";
+        }
+    }
 }
+

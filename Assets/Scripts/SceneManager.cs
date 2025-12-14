@@ -10,11 +10,13 @@ public class SceneManager : MonoBehaviour
 
     public void SwitchtoMainMenu()
     {
+        Debug.Log("[SceneManager.SwitchtoMainMenu] Called - switching to MainMenu");
         if (string.IsNullOrEmpty(mainMenuScene))
         {
             Debug.LogWarning("SceneManager: mainMenuScene is not set in Inspector.");
             return;
         }
+        Debug.Log($"[SceneManager.SwitchtoMainMenu] Loading scene: {mainMenuScene}");
         UnityEngine.SceneManagement.SceneManager.LoadScene(mainMenuScene);
     }
 
