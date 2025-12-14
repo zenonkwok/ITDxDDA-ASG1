@@ -24,7 +24,7 @@ MonoBehaviour:
       m_GuidLow: 16705183326071683682
       m_GuidHigh: 11111019111747708394
     m_Size: {x: 0.3, y: 0.3}
-    m_SpecifySize: 1
+    m_SpecifySize: 0
     m_Name: FOODCLUB
     m_Texture: {fileID: 0}
   - m_SerializedGuid:
@@ -34,7 +34,7 @@ MonoBehaviour:
       m_GuidLow: 3086226067526512510
       m_GuidHigh: 18371457367073414121
     m_Size: {x: 0.5, y: 0.35182926}
-    m_SpecifySize: 1
+    m_SpecifySize: 0
     m_Name: Chicken-Rice
     m_Texture: {fileID: 0}
   - m_SerializedGuid:
@@ -44,7 +44,7 @@ MonoBehaviour:
       m_GuidLow: 1064217305302027407
       m_GuidHigh: 10976242519497380795
     m_Size: {x: 0.3, y: 0.3}
-    m_SpecifySize: 1
+    m_SpecifySize: 0
     m_Name: Kebab
     m_Texture: {fileID: 0}
   - m_SerializedGuid:
@@ -54,7 +54,7 @@ MonoBehaviour:
       m_GuidLow: 16439487352329563725
       m_GuidHigh: 13778744041898625145
     m_Size: {x: 0.3, y: 0.2}
-    m_SpecifySize: 1
+    m_SpecifySize: 0
     m_Name: BakedRice
     m_Texture: {fileID: 0}
   - m_SerializedGuid:
@@ -64,6 +64,6 @@ MonoBehaviour:
       m_GuidLow: 15331621309997262971
       m_GuidHigh: 12170064972008832106
     m_Size: {x: 0.3, y: 0.3}
-    m_SpecifySize: 1
+    m_SpecifySize: 0
     m_Name: FOODCLUBTURKISH
     m_Texture: {fileID: 0}

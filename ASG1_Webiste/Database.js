@@ -56,9 +56,13 @@ export async function initAndPopulate() {
     const steamedChickenNode = await fetchItems('FoodClubChickenRice/FoodStats/SteamedChickenRice');
     if (steamedChickenNode) {
       const el = document.getElementById('dish-name');
+      const descEl = document.getElementById('dish-desc');
       if (el) {
         const label = steamedChickenNode.name || steamedChickenNode.title || humanize('SteamedChickenRice');
         el.textContent = label;
+      }
+      if (descEl && steamedChickenNode.Description) {
+        descEl.textContent = steamedChickenNode.Description;
       }
     }
 
@@ -66,30 +70,42 @@ export async function initAndPopulate() {
     const BakedChickenRiceNode = await fetchItems('FoodClubTurkish/FoodStats/BakedChickenRice');
     if (BakedChickenRiceNode) {
       const el2 = document.getElementById('dish2-name');
+      const desc2 = document.getElementById('dish2-desc');
       if (el2) {
         // prefer explicit fields, fall back to humanized key
         const label = BakedChickenRiceNode.name || BakedChickenRiceNode.title || humanize('BakedChickenRice');
         el2.textContent = label;
+      }
+      if (desc2 && BakedChickenRiceNode.Description) {
+        desc2.textContent = BakedChickenRiceNode.Description;
       }
     }
 
     const chickenKebabNode = await fetchItems('FoodClubTurkish/FoodStats/ChickenKebab');
     if (chickenKebabNode) {
       const el2 = document.getElementById('dish3-name');
+      const desc3 = document.getElementById('dish3-desc');
       if (el2) {
         // prefer explicit fields, fall back to humanized key
         const label = chickenKebabNode.name || chickenKebabNode.title || humanize('ChickenKebab');
         el2.textContent = label;
+      }
+      if (desc3 && chickenKebabNode.Description) {
+        desc3.textContent = chickenKebabNode.Description;
       }
     }
 
     const chickencutletriceNode = await fetchItems('FoodClubChickenRice/FoodStats/ChickenCutletRice');
     if (chickencutletriceNode) {
       const el2 = document.getElementById('dish4-name');
+      const desc4 = document.getElementById('dish4-desc');
       if (el2) {
         // prefer explicit fields, fall back to humanized key
         const label = chickencutletriceNode.name || chickencutletriceNode.title || humanize('ChickenCutletRice');
         el2.textContent = label;
+      }
+      if (desc4 && chickencutletriceNode.Description) {
+        desc4.textContent = chickencutletriceNode.Description;
       }
     }
 
