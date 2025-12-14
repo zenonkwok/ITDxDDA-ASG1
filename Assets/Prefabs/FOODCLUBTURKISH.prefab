@@ -2825,7 +2825,7 @@ GameObject:
   - component: {fileID: 5152721308256687576}
   - component: {fileID: 6288901495570065375}
   m_Layer: 0
-  m_Name: FOODCLUB
+  m_Name: FOODCLUBTURKISH
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2883,7 +2883,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ad39e6f794408745b706632847cbe2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ReviewForm
-  locationId: FoodClubChickenRice
+  locationId: FoodClubTurkish
   emojiHighlighters:
   - {fileID: 638901306611417065}
   - {fileID: 2068299033810634786}
@@ -3223,7 +3223,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Food Club Chicken Rice
+  m_text: Food Club Turkish Food
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3986bf9bfc177644e910d4550dfbef82, type: 2}
   m_sharedMaterial: {fileID: 9160985743691455900, guid: 3986bf9bfc177644e910d4550dfbef82, type: 2}
@@ -4440,7 +4440,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7492171847070039886
 RectTransform:
   m_ObjectHideFlags: 0

@@ -2,6 +2,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Firebase.Auth;
+using System; // for Environment.StackTrace
+// Editor-only prefab diagnostics
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 /// <summary>
 /// Attach to the review form UI - handles emoji selection and submission
@@ -9,7 +14,7 @@ using Firebase.Auth;
 public class ReviewForm : MonoBehaviour
 {
     [Header("Configuration")]
-    [SerializeField] private string locationId = "FoodClubChickenRice";
+    [SerializeField] private string locationId = "";
 
     [Header("UI Elements")]
     [SerializeField] private XRHighlightOnSelect[] emojiHighlighters = new XRHighlightOnSelect[5];
@@ -24,6 +29,24 @@ public class ReviewForm : MonoBehaviour
     private void Awake()
     {
         Debug.Log("[ReviewForm.Awake] ReviewForm component is initializing!");
+        Debug.Log($"[ReviewForm.Awake] InstanceID={GetInstanceID()} GameObject='{gameObject.name}' initial locationId='{locationId}'");
+    }
+
+    // Called in editor when serialized properties change in the inspector
+    private void OnValidate()
+    {
+        Debug.Log($"[ReviewForm.OnValidate] InstanceID={GetInstanceID()} GameObject='{gameObject.name}' locationId='{locationId}'");
+#if UNITY_EDITOR
+        var status = PrefabUtility.GetPrefabInstanceStatus(gameObject);
+        var source = PrefabUtility.GetCorrespondingObjectFromSource(gameObject);
+        Debug.Log($"[ReviewForm.OnValidate] PrefabInstanceStatus={status} PrefabSourceName={(source != null ? source.name : "NULL")}");
+#endif
+    }
+
+    // Called when the component is Reset in Inspector or first added
+    private void Reset()
+    {
+        Debug.Log($"[ReviewForm.Reset] InstanceID={GetInstanceID()} GameObject='{gameObject.name}' locationId='{locationId}'");
     }
 
     private void Start()
@@ -32,7 +55,8 @@ public class ReviewForm : MonoBehaviour
         
         Debug.Log($"[ReviewForm.Start] submitButton is {(submitButton != null ? "ASSIGNED" : "NULL")}");
         Debug.Log($"[ReviewForm.Start] closeButton is {(closeButton != null ? "ASSIGNED" : "NULL")}");
-        
+        Debug.Log($"[ReviewForm.Start] InstanceID={GetInstanceID()} GameObject='{gameObject.name}' current locationId='{locationId}'");
+
         if (submitButton)
         {
             submitButton.onClick.AddListener(OnSubmitClicked);
@@ -105,6 +129,15 @@ public class ReviewForm : MonoBehaviour
         // Get the current user's email from Firebase and extract the username part
         string userName = GetEmailUsername();
 
+        // Diagnostic logs to trace locationId and other instances
+        Debug.Log($"[ReviewForm.OnSubmitClicked] InstanceID={GetInstanceID()} GameObject='{gameObject.name}' locationId='{locationId}' IsNullOrWhiteSpace={string.IsNullOrWhiteSpace(locationId)}");
+        var all = FindObjectsOfType<ReviewForm>();
+        Debug.Log($"[ReviewForm.OnSubmitClicked] Found {all.Length} ReviewForm instance(s) in scene:");
+        for (int i = 0; i < all.Length; i++)
+        {
+            Debug.Log($"  [{i}] InstanceID={all[i].GetInstanceID()} GameObject='{all[i].gameObject.name}' locationId='{all[i].locationId}'");
+        }
+
         ShowStatus("Submitting...");
         Debug.Log($"[ReviewForm.OnSubmitClicked] About to call DatabaseScript.SaveReview");
         Debug.Log($"[ReviewForm.OnSubmitClicked] LocationId={locationId}, Rating={selectedRating}, UserName={userName}, Remarks={remarks}");
@@ -142,8 +175,9 @@ public class ReviewForm : MonoBehaviour
 
     public void SetLocationId(string newLocationId)
     {
+        string prev = locationId;
         locationId = newLocationId;
-        Debug.Log($"ReviewForm location set to: {locationId}");
+        Debug.Log($"[ReviewForm.SetLocationId] InstanceID={GetInstanceID()} GameObject='{gameObject.name}' previous='{prev}' new='{locationId}'\nStackTrace:\n{Environment.StackTrace}");
     }
 
     /// <summary>
