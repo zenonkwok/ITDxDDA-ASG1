@@ -743,7 +743,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed2205ab20b8be948848f417a6fcc81a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::XRHighlightOnSelect
-  defaultMaterial: {fileID: 2100000, guid: 7ead75dbdd815ae419b130d15c0bba35, type: 2}
+  defaultMaterial: {fileID: 2100000, guid: 70cdabe4f8df8184496584ef7176c0d0, type: 2}
   highlightMaterial: {fileID: 2100000, guid: 1bfbb7b37aa8d2f4cbd012fa0d260c60, type: 2}
 --- !u!1 &7274594502998751544
 GameObject:
