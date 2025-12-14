@@ -8,7 +8,7 @@ using TMPro;
 public class NotepadController : MonoBehaviour
 {
     [Header("Configuration")]
-    [SerializeField] private string locationId = "FoodClubChickenRice";
+    [SerializeField] private string locationId = "";
 
     [Header("Screen Management")]
     [SerializeField] public GameObject mainScreen;    // Shows "Rate Place" / "Read Reviews" buttons

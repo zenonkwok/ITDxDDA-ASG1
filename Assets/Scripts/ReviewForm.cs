@@ -131,7 +131,7 @@ public class ReviewForm : MonoBehaviour
 
         // Diagnostic logs to trace locationId and other instances
         Debug.Log($"[ReviewForm.OnSubmitClicked] InstanceID={GetInstanceID()} GameObject='{gameObject.name}' locationId='{locationId}' IsNullOrWhiteSpace={string.IsNullOrWhiteSpace(locationId)}");
-        var all = FindObjectsOfType<ReviewForm>();
+        var all = FindObjectsByType<ReviewForm>(FindObjectsSortMode.None);
         Debug.Log($"[ReviewForm.OnSubmitClicked] Found {all.Length} ReviewForm instance(s) in scene:");
         for (int i = 0; i < all.Length; i++)
         {

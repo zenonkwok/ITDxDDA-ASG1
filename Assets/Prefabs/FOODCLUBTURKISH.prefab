@@ -2860,7 +2860,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d014a6744e640c4087e2f0ff2ba177c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NotepadController
-  locationId: FoodClubChickenRice
+  locationId: FoodClubTurkish
   mainScreen: {fileID: 7960255885136930846}
   reviewScreen: {fileID: 4601459804869496200}
   ratePlaceButton: {fileID: 1770357295716355745}
